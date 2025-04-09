@@ -7,20 +7,23 @@ set PID_FILE=app.pid
 
 echo Starting app...
 
-:: Dùng file tạm để chạy đúng tách tiến trình
-echo java -jar !JAR_NAME! ^> !LOG_FILE! 2^>^&1 > runapp.cmd
+:: Ghi lệnh vào 1 file tạm để tránh lỗi redirect
+echo @echo off > run-temp.bat
+echo java -jar !JAR_NAME! ^> !LOG_FILE! 2^>^&1 >> run-temp.bat
 
-start "" cmd /c runapp.cmd
+:: Chạy tiến trình detached khỏi Jenkins
+start "" /min cmd /c run-temp.bat
 
-:: Đợi chút cho app khởi chạy
+:: Chờ tiến trình khởi động
 timeout /t 2 >nul
 
-:: Lưu PID
+:: Ghi PID mới nhất của java (chỉ nếu có 1 tiến trình đang chạy)
 for /f "tokens=2" %%i in ('tasklist /FI "IMAGENAME eq java.exe" /FO CSV /NH') do (
     echo %%i > !PID_FILE!
     goto Done
 )
 
 :Done
-echo App started, PID written to !PID_FILE!
+echo App started with PID in !PID_FILE!
+
 endlocal
