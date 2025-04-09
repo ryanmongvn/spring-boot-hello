@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deploy Local') {
             steps {
-                bat 'run-myapp.bat'
+                 bat 'powershell -ExecutionPolicy Bypass -File run.ps1'
             }
         }
 
