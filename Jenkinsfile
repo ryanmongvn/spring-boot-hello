@@ -25,7 +25,7 @@ pipeline {
                 echo '🚀 Deploying locally...'
                 bat """
                     for /f "tokens=2 delims==;" %%i in ('wmic process where "commandline like '%%${JAR_NAME}%%'" get ProcessId /value') do taskkill /PID %%i /F
-                    copy target\\*.jar ${JAR_NAME}
+                    copy target\spring-boot-hello-0.0.1-SNAPSHOT.jar ${JAR_NAME}
                     start java -jar ${JAR_NAME} > app.log 2>&1
                 """
             }
