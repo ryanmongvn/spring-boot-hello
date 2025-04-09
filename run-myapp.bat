@@ -5,6 +5,6 @@ set PID_FILE=app.pid
 
 echo Starting app...
 
-powershell -Command "Start-Process 'java' '-jar %JAR_NAME%' -RedirectStandardOutput '%LOG_FILE%' -RedirectStandardError '%LOG_FILE%' -NoNewWindow -PassThru | Select-Object -ExpandProperty Id > '%PID_FILE%'"
+powershell -Command "Start-Process 'java' '-jar %JAR_NAME%' -NoNewWindow -PassThru | Select-Object -ExpandProperty Id > '%PID_FILE%'"
 
 echo App started with PID in %PID_FILE%.
