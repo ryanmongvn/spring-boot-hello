@@ -19,7 +19,7 @@ pipeline {
         stage('Prepare JAR') {
             steps {
                 bat '''
-                copy %JAR_ORIGIN% %JAR_NAME%
+                copy /Y "target\\spring-boot-hello-0.0.1-SNAPSHOT.jar" "myapp.jar"
                 '''
             }
         }
