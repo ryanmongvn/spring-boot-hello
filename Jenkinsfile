@@ -19,12 +19,7 @@ pipeline {
         stage('Prepare JAR') {
             steps {
                 bat '''
-                if exist %JAR_ORIGIN% (
-                    copy /Y %JAR_ORIGIN% %JAR_NAME%
-                ) else (
-                    echo JAR not found: %JAR_ORIGIN%
-                    exit /b 1
-                )
+                copy %JAR_ORIGIN% %JAR_NAME%
                 '''
             }
         }
