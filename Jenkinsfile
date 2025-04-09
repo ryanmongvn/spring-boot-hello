@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        WSL_IP = '172.25.47.1' // IP của WSL Ubuntu
+        WSL_IP = '172.25.55.148/' // IP của WSL Ubuntu
         REMOTE_USER = 'deploy'
         REMOTE_PATH = '/home/deploy'
         JAR_ORIGIN = 'target/spring-boot-hello-0.0.1-SNAPSHOT.jar'
