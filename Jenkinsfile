@@ -12,9 +12,18 @@ pipeline {
                 bat 'mvn clean package'
             }
         }
+
+        stage('Copy to WSL') {
+    steps {
+        bat '''
+        copy target\\spring-boot-hello-0.0.1-SNAPSHOT.jar myapp.jar
+        '''
+        bat "scp ${JAR_NAME} %REMOTE_USER%@%WSL_IP%:%REMOTE_PATH%"
+    }
+}
+
         stage('Deploy to WSL') {
             steps {
-                bat "scp target/${JAR_NAME} %REMOTE_USER%@%WSL_IP%:%REMOTE_PATH%"
                 bat "ssh %REMOTE_USER%@%WSL_IP% 'nohup java -jar ${REMOTE_PATH}/${JAR_NAME} > app.log 2>&1 &'"
             }
         }
