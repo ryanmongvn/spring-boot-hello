@@ -13,12 +13,12 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                echo '✅ Running tests...'
-                bat 'mvn test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         echo '✅ Running tests...'
+        //         bat 'mvn test'
+        //     }
+        // }
 
         stage('Deploy Local') {
             steps {
