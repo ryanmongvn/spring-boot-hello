@@ -7,18 +7,20 @@ set PID_FILE=app.pid
 
 echo Starting app...
 
-:: Chạy hoàn toàn detached khỏi Jenkins shell
-start "" /B cmd /c "java -jar %JAR_NAME% > %LOG_FILE% 2>&1"
+:: Dùng file tạm để chạy đúng tách tiến trình
+echo java -jar !JAR_NAME! ^> !LOG_FILE! 2^>^&1 > runapp.cmd
 
-:: Đợi tiến trình được khởi tạo
+start "" cmd /c runapp.cmd
+
+:: Đợi chút cho app khởi chạy
 timeout /t 2 >nul
 
-:: Lấy PID java mới nhất (nếu chỉ có 1 app java đang chạy thì OK)
+:: Lưu PID
 for /f "tokens=2" %%i in ('tasklist /FI "IMAGENAME eq java.exe" /FO CSV /NH') do (
-    echo %%i > %PID_FILE%
+    echo %%i > !PID_FILE!
     goto Done
 )
 
 :Done
-echo PID saved to %PID_FILE%
+echo App started, PID written to !PID_FILE!
 endlocal
