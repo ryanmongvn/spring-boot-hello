@@ -28,7 +28,6 @@ pipeline {
             steps {
                 bat """
                     echo nohup java -jar %JAR_NAME% ^> app.log 2^>^&1 ^& >> run.sh
-                    scp %JAR_NAME% %REMOTE_USER%@%WSL_IP%:%REMOTE_PATH%
                     scp run.sh %REMOTE_USER%@%WSL_IP%:%REMOTE_PATH%
                 """
             }
