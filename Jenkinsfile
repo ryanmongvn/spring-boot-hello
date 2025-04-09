@@ -14,6 +14,11 @@ pipeline {
             }
         }
 
+         stage('Stop App') {
+            steps {
+                bat 'stop.bat'
+            }
+        }
         stage('Deploy Local') {
             steps {
                 bat 'run-myapp.bat'
