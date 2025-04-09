@@ -9,24 +9,24 @@ pipeline {
         stage('Build') {
             steps {
                 echo '🛠 Building...'
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
                 echo '✅ Running tests...'
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('Deploy Local') {
             steps {
                 echo '🚀 Deploying locally...'
-                sh """
-                    pkill -f ${JAR_NAME} || true
-                    cp target/*.jar ${JAR_NAME}
-                    nohup java -jar ${JAR_NAME} > app.log 2>&1 &
+                bat """
+                    for /f "tokens=2 delims==;" %%i in ('wmic process where "commandline like '%%${JAR_NAME}%%'" get ProcessId /value') do taskkill /PID %%i /F
+                    copy target\\*.jar ${JAR_NAME}
+                    start /B java -jar ${JAR_NAME} > app.log 2>&1
                 """
             }
         }
