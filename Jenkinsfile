@@ -26,7 +26,6 @@ pipeline {
 
         stage('Deploy to WSL') {
             steps {
-                bat "scp %JAR_NAME% %REMOTE_USER%@%WSL_IP%:%REMOTE_PATH%"
                 bat "ssh %REMOTE_USER%@%WSL_IP% \"nohup java -jar ${REMOTE_PATH}/${JAR_NAME} > app.log 2>&1 &\""
             }
         }
