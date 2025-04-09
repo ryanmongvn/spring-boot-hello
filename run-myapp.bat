@@ -4,5 +4,7 @@ set LOG_FILE=app.log
 set PID_FILE=app.pid
 
 echo Starting app...
-start /B cmd /c "java -jar %JAR_NAME% > %LOG_FILE% 2>&1 & echo ! > %PID_FILE%"
-echo App started.
+
+powershell -Command "Start-Process 'java' '-jar %JAR_NAME%' -RedirectStandardOutput '%LOG_FILE%' -RedirectStandardError '%LOG_FILE%' -NoNewWindow -PassThru | Select-Object -ExpandProperty Id > '%PID_FILE%'"
+
+echo App started with PID in %PID_FILE%.
