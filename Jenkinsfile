@@ -27,7 +27,7 @@ pipeline {
         stage('Copy Files to WSL') {
             steps {
                 bat """
-                    echo nohup java -jar %JAR_NAME% ^> app.log 2^>^&1 ^& >> run.sh
+                    echo nohup java -jar myapp.jar ^> app.log 2^>^&1 ^& >> run.sh
                     scp run.sh %REMOTE_USER%@%WSL_IP%:%REMOTE_PATH%
                 """
             }
