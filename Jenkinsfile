@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Use Secret') {
             steps {
-                sh 'echo "Using token: $API_TOKEN"' // demo thôi, thực tế KHÔNG echo ra token!
+                bat 'echo Using token: %API_TOKEN%' // chỉ để demo, KHÔNG nên in token thật!
             }
         }
     }
