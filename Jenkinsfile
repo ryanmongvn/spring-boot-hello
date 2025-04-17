@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Use Secret') {
             steps {
-                bat 'echo Using token: %API_TOKEN%' // chỉ để demo, KHÔNG nên in token thật!
+                bat 'echo Using token   update: %API_TOKEN%' // chỉ để demo, KHÔNG nên in token thật!
             }
         }
     }
